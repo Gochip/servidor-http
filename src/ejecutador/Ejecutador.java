@@ -1,9 +1,13 @@
 package ejecutador;
 
+import comun.RespuestaHTTP;
+import comun.SolicitudHTTP;
+
 /**
  *
- * @author Parisi Germán
  */
 public class Ejecutador {
-
+    public RespuestaHTTP ejecutarSolicitud(SolicitudHTTP solicitud){
+        return null;
+    }
 }
