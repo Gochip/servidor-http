@@ -32,7 +32,6 @@ public class Ejecutador {
             if (!f.exists())
                 er=1;
 
-            System.out.println("ok");
             StringBuilder ret = new StringBuilder();
             Scanner sc = new Scanner(f);
             while(sc.hasNextLine()){
