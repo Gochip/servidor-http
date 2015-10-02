@@ -20,10 +20,17 @@ public class SolicitudHTTP {
     public String getAgenteUsuario() {
         return agenteUsuario;
     }
-    
+
+    public void setMetodo(String metodo) {
+        this.metodo = metodo;
+    }
+
+    public void setAgenteUsuario(String agenteUsuario) {
+        this.agenteUsuario = agenteUsuario;
+    }
+
     public void setArchivo( String a){
-        a = " ";
-        archivo = a;
+        this.archivo = a;
     }
     
 }
