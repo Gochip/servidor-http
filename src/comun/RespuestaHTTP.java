@@ -9,9 +9,9 @@ public class RespuestaHTTP {
     
     public String getRespuesta() {
         String respuesta = "HTTP/1.1 200 OK\n";
-        respuesta += "Content-Length: 9\n";
+        respuesta += "Content-Length: " + cuerpo.length() + "\n";
         respuesta += "Connection: close\n";
-        respuesta += "\n123456789\n" + cuerpo;
+        respuesta += "\n" + cuerpo;
         return respuesta;
     }
     
