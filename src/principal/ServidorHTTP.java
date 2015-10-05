@@ -24,7 +24,6 @@ public class ServidorHTTP {
     private static final int PUERTO = 8081;
 
     public static void main(String args[]) {
-        int caracterActual, caracterAnterior = 0;
         try {
             ServerSocket ss = new ServerSocket(PUERTO);
             while (true) {
@@ -34,7 +33,13 @@ public class ServidorHTTP {
                 StringBuilder cabecera = new StringBuilder();
                 Scanner sc = new Scanner(s.getInputStream());
                 sc.useDelimiter("\\r\\n\\r\\n"); // Hasta una línea en blanco.
-                cabecera.append(sc.next());
+                if(sc.hasNext()){
+                    cabecera.append(sc.next());
+                }else{
+                    System.out.println("No se recibió una cabecera");
+                    continue;
+                }
+                
 
                 Parser parser = new Parser();
                 SolicitudHTTP solicitud = parser.parsearSolicitud(cabecera.toString());
