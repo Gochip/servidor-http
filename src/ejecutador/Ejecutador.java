@@ -13,7 +13,7 @@ public class Ejecutador {
 
     public static final String OK = "200 ok";
     public static final String NOT_FOUND = "404 not found";
-    public static final String PYTHON3 = "python3";
+    public static final String PYTHON3 = "python";
 
     public RespuestaHTTP ejecutarSolicitud(SolicitudHTTP solicitud) {
         RespuestaHTTP respuesta = new RespuestaHTTP();
@@ -42,9 +42,12 @@ public class Ejecutador {
             String nombreArchivo = f.getName();
             int ind = nombreArchivo.lastIndexOf(".");
             String extension = nombreArchivo.substring(ind + 1, nombreArchivo.length());
+            
             if (extension.equals("py")) {
-                System.out.println("Ejecutando archivos de python");
-                Process p = Runtime.getRuntime().exec(PYTHON3 + " " + f.getAbsolutePath());
+                String parametros = interpretarParametros(solicitud.getParametros());
+                String comando = PYTHON3 + " " + f.getAbsolutePath() + " " + parametros;
+                System.out.println(comando);
+                Process p = Runtime.getRuntime().exec(comando);
                 Scanner sc = new Scanner(p.getInputStream());
                 while (sc.hasNextLine()) {
                     cuerpoRespuesta.append(sc.nextLine());
@@ -60,6 +63,10 @@ public class Ejecutador {
             System.out.println(e.getMessage());
             return "Error 500: Internal error";
         }
+    }
+    
+    public String interpretarParametros(String parametros){
+        return parametros.replace('=', ' ').replace('&', ' ');
     }
 }
 
