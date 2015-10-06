@@ -48,7 +48,12 @@ public class Ejecutador {
                 String comando = PYTHON3 + " " + f.getAbsolutePath() + " " + parametros;
                 System.out.println(comando);
                 Process p = Runtime.getRuntime().exec(comando);
-                Scanner sc = new Scanner(p.getInputStream());
+                
+                Scanner sc = new Scanner(p.getErrorStream());
+                while (sc.hasNextLine()) {
+                    cuerpoRespuesta.append(sc.nextLine());
+                }
+                sc = new Scanner(p.getInputStream());
                 while (sc.hasNextLine()) {
                     cuerpoRespuesta.append(sc.nextLine());
                 }
