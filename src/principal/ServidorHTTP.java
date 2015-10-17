@@ -1,5 +1,6 @@
 package principal;
 
+import comun.Codigos;
 import comun.RespuestaHTTP;
 import comun.SolicitudHTTP;
 import ejecutador.Ejecutador;
@@ -29,19 +30,25 @@ public class ServidorHTTP {
                 StringBuilder cabecera = new StringBuilder();
                 Scanner sc = new Scanner(s.getInputStream());
                 sc.useDelimiter("\\r\\n\\r\\n"); // Hasta una línea en blanco.
-                if(sc.hasNext()){
+                if (sc.hasNext()) {
                     cabecera.append(sc.next());
-                }else{
+                } else {
                     System.out.println("No se recibió una cabecera");
                     continue;
                 }
-                
 
-                Parser parser = new Parser();
-                SolicitudHTTP solicitud = parser.parsearSolicitud(cabecera.toString());
+                RespuestaHTTP respuesta = null;
+                try {
+                    Parser parser = new Parser();
+                    SolicitudHTTP solicitud = parser.parsearSolicitud(cabecera.toString());
 
-                Ejecutador ejecutador = new Ejecutador();
-                RespuestaHTTP respuesta = ejecutador.ejecutarSolicitud(solicitud);
+                    Ejecutador ejecutador = new Ejecutador();
+                    respuesta = ejecutador.ejecutarSolicitud(solicitud);
+                } catch (Codigos.HTTPException e) {
+                    respuesta = new RespuestaHTTP();
+                    respuesta.setCodigo(e.toString());
+                    respuesta.setCuerpo(e.cuerpo);
+                }
 
                 DataOutputStream out = new DataOutputStream(s.getOutputStream());
                 out.writeUTF(respuesta.getRespuesta());
