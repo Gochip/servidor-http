@@ -1,0 +1,25 @@
+
+#titulo{
+    font-family: “Arial”, serif;
+    color: darkmagenta;
+    
+}
+
+body{
+    background-color: cadetblue;
+}
+
+div{
+    background-color: azure;
+    width: 300px;
+    height: 200px;
+    font-family: “Arial”, serif;
+    font-size: 12px;
+    text-align: justify;
+}
+
+
+button{
+    box-shadow: buttonshadow;
+}
+
