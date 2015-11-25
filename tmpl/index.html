@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link href="../css/estilos.css" type="text/css" rel="stylesheet" />
+        
+        <script type="text/javascript">
+		function mostrar(idMetodo){
+			var div = document.getElementById(idMetodo);
+			div.style.display = (div.style.display == "none") ? "inline" : "none";
+		}
+	</script>
+        
+        <title>Formularios Web</title>
+    </head>
+    <body>
+        <h2 id="titulo">Formularios</h2>
+        
+        <button type="button" onclick="mostrar('metodoget')">Formulario GET</button>
+        <br>
+        <div id="metodoget">
+            <form action="../src/form.php" method="get">
+                <input type="text" name="dato1" placeholder="Dato 1">
+                <input type="text" name="dato2" placeholder="Dato 2">
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+        
+        <br>
+        <button type="button" onclick="mostrar('metodopost')">Formulario POST</button>
+        <div id="metodopost">
+            <form action="../src/form.php" method="post">
+                <input type="text" name="dato1" placeholder="Dato 1">
+                <input type="text" name="dato2" placeholder="Dato 2">
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+        
+    </body>
+</html>

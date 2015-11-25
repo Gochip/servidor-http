@@ -33,10 +33,23 @@ public class Parser {
         }
         String archivo = sc.next();
         String parametros = "";
-        int ind = archivo.indexOf("?");
-        if (ind != -1) {
-            parametros = archivo.substring(ind + 1, archivo.length());
-            archivo = archivo.substring(0, ind);
+        int ind = -1;
+        switch (metodo) {
+            case "GET":
+                ind = archivo.indexOf("?");
+                if (ind != -1) {
+                    parametros = archivo.substring(ind + 1, archivo.length());
+                    archivo = archivo.substring(0, ind);
+                }
+                break;
+            case "POST":                 
+                while(sc.hasNext()){
+                    parametros = sc.next();                            
+                }
+                //System.out.println(parametros);                                
+                break;
+            default:
+                break;
         }
         SolicitudHTTP solicitud = new SolicitudHTTP();
         solicitud.setMetodo(metodo);

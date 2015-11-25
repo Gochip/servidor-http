@@ -5,6 +5,7 @@ import comun.RespuestaHTTP;
 import comun.SolicitudHTTP;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 /**
@@ -44,10 +45,12 @@ public class Ejecutador {
                 System.out.println(comando);
                 Process p = Runtime.getRuntime().exec(comando);
 
-                Scanner sc = new Scanner(p.getErrorStream());
-                while (sc.hasNextLine()) {
-                    cuerpoRespuesta.append(sc.nextLine());
-                }
+                Scanner sc = null;
+//                InputStream error = p.getErrorStream();
+//                sc = new Scanner(error);
+//                while (sc.hasNextLine()) {
+//                    cuerpoRespuesta.append(sc.nextLine());
+//                }
                 sc = new Scanner(p.getInputStream());
                 while (sc.hasNextLine()) {
                     cuerpoRespuesta.append(sc.nextLine());
@@ -61,7 +64,7 @@ public class Ejecutador {
             return cuerpoRespuesta.toString();
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            return "Error 500: Internal error";
+            return "Error 500: Error Interno";
         }
     }
 

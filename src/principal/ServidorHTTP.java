@@ -6,6 +6,7 @@ import comun.SolicitudHTTP;
 import ejecutador.Ejecutador;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -28,20 +29,23 @@ public class ServidorHTTP {
                 System.out.println("ACEPTADO");
 
                 StringBuilder cabecera = new StringBuilder();
-                Scanner sc = new Scanner(s.getInputStream());
-                sc.useDelimiter("\\r\\n\\r\\n"); // Hasta una línea en blanco.
+                System.out.println(s);
+                InputStream is = s.getInputStream();
+                Scanner sc = new Scanner(is);
+                System.out.println();
+                //sc.useDelimiter("\\r\\n\\r\\n"); // Hasta una línea en blanco.                                
+                sc.useDelimiter("\\z"); // Hasta final del string.
                 if (sc.hasNext()) {
                     cabecera.append(sc.next());
-                } else {
-                    System.out.println("No se recibió una cabecera");
-                    continue;
-                }
-
+                } else {                    
+                        System.out.println("No se recibió una cabecera");
+                        continue;                    
+                }                
+                System.out.println(cabecera);
                 RespuestaHTTP respuesta = null;
                 try {
                     Parser parser = new Parser();
                     SolicitudHTTP solicitud = parser.parsearSolicitud(cabecera.toString());
-
                     Ejecutador ejecutador = new Ejecutador();
                     respuesta = ejecutador.ejecutarSolicitud(solicitud);
                 } catch (Codigos.HTTPException e) {
